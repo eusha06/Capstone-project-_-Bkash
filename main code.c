@@ -1,5 +1,8 @@
-
 // Bank Management system (BKASH):
+// Design, program  and testing by Md. Eusha Hasan- Id:1058
+// cheering by : Syeda  Ayesha Akter Asha - ID: 1293
+// No contribution: Nahid Hasan Hridoy , ID: 1239
+
 
 #include <conio.h>
 #include<stdio.h>
@@ -27,10 +30,17 @@ struct pass {
 	char lname[20];
 	char fathname[20];
 	char mothname[20];
+	char password[50];
 	int total = 0;
 	int count = 0;
 };
 
+
+
+
+struct pass currentUser;
+
+/*
 struct money {
 	char usernameto[50];
 	char userpersonfrom[50];
@@ -40,12 +50,10 @@ struct money {
 struct userpass {
 	char password[50];
 };
-
-struct pass currentUser;
-
+*/
 
 // Declaring all the functions
-void checkbalance(char*);
+
 void transfermoney(void);
 void display(char*);
 void person(char*);
@@ -64,43 +72,69 @@ void account_details(void);
 void mobile_recharge(void);
 void edufee(void);
 void payment(void);
+void password_change(void);
 
  int main(){
-      FILE *ptr = fopen("Account.txt", "w");
+    FILE *ptr = fopen("Account.txt", "w");
  int i, a, b, choice;
 	int passwordlength;
 
-	gotoxy(20, 3);
+gotoxy(24, 10);
+
+	for (i=0; i<62; i++){
+        printf("*");
+	}
+	gotoxy(19,11);
+	printf("     *");
+
+	gotoxy(82,11);
+	printf("   *");
+
+	gotoxy(82,12);
+	printf("   *");
+	gotoxy(85,13);
+	printf("*");
+	gotoxy(21, 12);
 
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     // Set text color to red
+    printf("   *");
     SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+
 
 	printf("\t\tWELCOME TO BKASH BANKING SYSTEM\n\n");
 
 	 SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+	 gotoxy(21,13);
+	 printf("   *");
 
-	gotoxy(18, 5);
+	gotoxy(18, 14);
 
 
-	printf("\t**********************************************");
+	printf("\t");
+	for (i=0; i<62; i++){
+        printf("*");
+	}
 
 	 printf("\n\nLoading");
     for (i = 0; i < 3; i++) {
         printf(".");
         Sleep(1000); // Delay for 1 second
     }
-	gotoxy(25, 7);
+
+
+    system("cls");
+    gotoxy(25, 10);
 
 	printf("\n\t\t\tDEVELOPER- Eusha Hasan");
 
-	gotoxy(20, 10);
+	gotoxy(20, 13);
 	printf("1.... CREATE A BIKASH ACCOUNT");
 
-	gotoxy(20, 12);
+	gotoxy(20, 15);
 	printf("2.... ALREADY AN USER? SIGN IN");
-	gotoxy(20, 14);
+	gotoxy(20, 17);
 	printf("3.... EXIT\n\n");
 
 	printf("\n\nENTER YOUR CHOICE.. ");
@@ -108,6 +142,7 @@ void payment(void);
 
 
 	scanf("%d", &choice);
+
 
 // choice made
 
@@ -145,9 +180,9 @@ void account(void) {
 	char ch;
 	FILE *fp, *fu;
 	struct pass u1;
-	struct userpass p1;
+	//struct userpass p1;
 
-	struct userpass u2;
+	//struct userpass u2;
 
     // Opening file to
     // write data of a user
@@ -174,7 +209,7 @@ fflush(stdin);
     printf("\nMOTHER's NAME: ");
     scanf("%[^\n]%*c", u1.mothname);
     fflush(stdin);
-    getchar();
+  //  getchar();
 
     printf("\nDATE OF BIRTH\n");
     printf("DATE: ");
@@ -198,21 +233,11 @@ fflush(stdin);
 
     fflush(stdin);
     printf("\nUSERNAME: ");
-    scanf("%[^\n]%*c", u1.username);
+   scanf("%s", u1.username);
     fflush(stdin);
-
+ //printf("%s new", u1.username);
     printf("\nPASSWORD: ");
-
- for (i = 0; i < 50; i++) {
-		ch = getch();
-		if (ch != 13) {
-			password[i] = ch;
-			ch = '*';
-			printf("%c", ch);
-		}
-		else
-			break;
-	}
+scanf("%s",u1.password);
 
 	// new
 strcpy(currentUser.fname, u1.fname);
@@ -222,13 +247,15 @@ strcpy(currentUser.fname, u1.fname);
     strcpy(currentUser.nidnum, u1.nidnum);
     strcpy(currentUser.pnumber, u1.pnumber);
     strcpy(currentUser.username, u1.username);
+    strcpy(currentUser.password, u1.password);
     currentUser.date = u1.date;
     currentUser.month = u1.month;
     currentUser.year = u1.year;
  currentUser.total = u1.total;
 currentUser.count = u1.count;
 
-    // end;
+
+
     fwrite(&u1, sizeof(u1), 1, fp);
 
     fclose(fp);
@@ -258,8 +285,8 @@ void accountcreated(void)
 		i--;
 	}
 
-	gotoxy(30, 10);
-	printf("WELCOME TO BIKASH.....\n");
+	gotoxy(40, 10);
+	printf("\n\n\n\t\t\t\t\t\t\t\tWELCOME TO BIKASH.....\n");
 	gotoxy(0, 20);
 
 	printf("Press enter to login");
@@ -282,8 +309,8 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	int i, j, k;
 	char ch;
 	FILE *fp, *fu;
-	struct pass u1;
-	struct userpass u2;
+	//struct pass u1;
+	// struct userpass u2;
 	fflush(stdin);
 	// Opening file of
 	// user data
@@ -304,38 +331,47 @@ printf("\n");
 	gotoxy(35, 10);
 	printf("\t\t==== LOG IN ====");
 
+
+//printf("%s",currentUser.password);
 	// Take input
 	gotoxy(35, 12);
 	printf("USERNAME.. ");
 
-scanf("%s",&username);
+scanf("%s", username);
 
 	gotoxy(35, 14);
 	printf("PASSWORD..");
 
-	// Input the password
-	for (i = 0; i < 50; i++) {
-		ch = getch();
-		if (ch != 13) {
-			password[i] = ch;
-			ch = '*';
-			printf("%c", ch);
-		}
+	scanf("%s", password);
+	if (strcmp(currentUser.username,username)==0){
 
-		else
-			break;
-	}
+	if (strcmp(currentUser.password,password)== 0){
 
-	// Checking if username
-	// exists in the file or not
 			loginsu();
 			//fflush(stdin);
 			display(username);
+			fclose(fp);
+	}
+	else {
+        printf("password don't matched\n");
 
+	printf("Please try again\n");
 
+	getch();
+	login();
+	}
+	}
+	else {
+        printf("Your username is not matched\n");
+
+	printf("Please try again\n");
+
+	getch();
+	login();
+	}
 
 	// Closing the file
-	fclose(fp);
+
 }
 
 
@@ -386,37 +422,43 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	for (int i=0; i<60; i++){
         printf("*");
 	}
-	gotoxy(30, 10);
+	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
+	gotoxy(15, 15);
 	printf("CURRENT AMOUNT %d Tk\n,", currentUser.total);
+
+
+	 SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);
+
 	gotoxy(30,11);
-	printf(" 1....SEND MONEY");
+	printf(" 1..... Account Details");
 	gotoxy(30,12);
 	printf(" 2....PAYMENT\n\n");
 	gotoxy(30,13);
 	printf(" 3....CASH IN ");
 	gotoxy(30,14);
-	printf(" 4..... Account Details");
+	printf(" 4....SEND MONEY");
 
 	gotoxy(30,15);
 	printf(" 5......CASH OUT MONEY");
 	gotoxy(30,16);
-	printf(" 6......ALL TRASACION DETAILS");
+	printf(" 6......ALL TRASACION'S DETAILS");
 	gotoxy(30,17);
     printf(" 7......MOBILE RECHARGE");
     gotoxy(30,18);
     printf(" 8......EDUCATION FEE");
     gotoxy(30,19);
-printf("9....LOG OUT\n\n");
+printf(" 9....LOG OUT");
 gotoxy(30,20);
-
+printf(" 10......password change");
+gotoxy(30,21);
 
 	printf(" ENTER YOUR CHOICES..");
 	scanf("%d", &choice);
 
 	switch (choice) {
 	case 1:
-		transfermoney();
-		break;
+		 account_details();
+	   break;
 
 	case 2:
 		payment();
@@ -427,7 +469,7 @@ gotoxy(30,20);
         break;
 
         case 4:
-	   account_details();
+	   transfermoney();
 	   break;
 
         case 5:
@@ -451,20 +493,28 @@ gotoxy(30,20);
 		login();
 		break;
 
+		case 10:
+            password_change();
+            break;
+
 	default:
 	printf("................Invalid Choice...........\n");
-	exit(0);
+	getch();
+    display(currentUser.username);
 
 	}
 }
+
 
 void account_details(void){
 system("cls");
  printf("\t\t\t==========================================\n");
     printf("\t\t\t            ACCOUNT DETAILS\n");
     printf("\t\t\t==========================================\n\n");
-	gotoxy(30, 1);
-	  printf("WELCOME, %s \n\n\n", currentUser.username);
+	//gotoxy(30, 1);
+	gotoxy(30,3);
+	fflush(stdin);
+	  printf("\n\nWELCOME, %s\n\n\n", currentUser.username);
 	  gotoxy(55, 4);
     printf("NAME         : %s %s\n", currentUser.fname, currentUser.lname);
     gotoxy(55, 6);
@@ -547,6 +597,9 @@ void transfermoney(void)
 
 
 }
+
+
+
 void deposit_money(void){
 
 	system("cls");
@@ -585,6 +638,7 @@ printf("Press any key...");
 
 }
 
+
 void withdraw_money(void){
 
     system("cls");
@@ -608,15 +662,15 @@ time_t tm;
     else
     {
         currentUser.total = currentUser.total - ac;
-         gotoxy(0, 28);
+         gotoxy(0, 16);
 	printf(
 		"--------------------------------------------------"
 		"--------------------------------------------");
 
         gotoxy(0, 29);
-	printf("Withdrawing the money, Please wait..");
+	printf("Withdrawing the money,\n Please wait..");
 
-        printf("*****Money withdrawn successful*****\n");
+        printf("\n*****Money withdrawn successful*****\n");
         printf("Current balance : %d\n", currentUser.total);
         fprintf(ptr, "\nTk%d had been withdrawn from your account \n", ac);
         fprintf(ptr, "Date/Time of transaction :  %s\n", ctime(&tm));
@@ -664,7 +718,7 @@ int i;
 
         }
     }
-
+printf("ClICK ANYWHERE TO CONTINUE..........\n");
     getch();
     display(currentUser.username);
 }
@@ -696,17 +750,17 @@ void mobile_recharge(void){
     else
     {
         currentUser.total = currentUser.total - trans_amt;
-        	gotoxy(0, 24);
+        	gotoxy(0, 18);
 	printf(
 		"--------------------------------------------------"
 		"--------------------------------------------");
 
-	gotoxy(0, 26);
+	gotoxy(0, 20);
 	printf(
 		"--------------------------------------------------"
 		"--------------------------------------------");
 
-	gotoxy(0, 27);
+	gotoxy(0, 21);
 	printf("Recharge ongoing, Please wait..");
 
 	gotoxy(10, 27);
@@ -718,9 +772,9 @@ void mobile_recharge(void){
 		printf("*");
 	}
 printf("\n");
-	gotoxy(32, 40);
+	gotoxy(35, 40);
 	printf("RECHARGE SUCCESSFUL....\n");
-        printf("Current balance : %d\n", currentUser.total);
+        printf("\nCurrent balance : %d\n", currentUser.total);
         fprintf(ptr, "\nTk %d had been mobile recharge from your account to %s\n", trans_amt, ac);
         fprintf(ptr, "Date/Time of transaction :  %s\n", ctime(&tm));
         currentUser.count++;
@@ -862,6 +916,69 @@ printf("\n");
 
 
 }
+
+// password change feature
+
+void password_change(void) {
+    system("cls");
+    FILE* ptr = fopen("Account.txt", "a");
+    char s[50];
+    char p[50];
+    int d, i;
+
+    gotoxy(20, 5);
+    printf("1.. Change the current password\n");
+    gotoxy(20,7);
+    printf("2.. Back to the Menu bar\n");
+
+    gotoxy(20, 9);
+    printf("Enter your choice: \n");
+    scanf("%d", &d);
+
+    switch (d) {
+    case 1:
+        printf("ENTER THE PREVIOUS PASSWORD: ");
+        scanf("%s", s);
+        if (strcmp(s, currentUser.password) == 0) {
+            printf("New Password : \n");
+            scanf("%s", s);
+            printf("Rewrite the new password: \n");
+            scanf("%s", p);
+            if (strcmp(s, p) == 0) {
+                strcpy(currentUser.password, s);
+                printf("Password Change Successful....\n");
+                printf("Click anywhere to continue....");
+                getch();
+                display(currentUser.username);
+            } else {
+                printf("Given Password doesn't match.\n");
+                getch();
+                password_change();
+            }
+        } else {
+            printf("YOUR GIVEN PASSWORD DOESN'T MATCH THE PREVIOUS PASSWORD.\n PLEASE TRY AGAIN.....\n");
+            getch();
+            password_change();
+        }
+
+        break;
+
+    case 2:
+        getch();
+        display(currentUser.username);
+        break;
+
+    default:
+        password_change();
+    }
+
+    getch();
+    display(currentUser.username);
+    
+}
+
+
+
 
 // Logout function to bring
 // user to the login screen
