@@ -1,7 +1,6 @@
+
 // Bank Management system (BKASH):
-// Design, program  and testing by Md. Eusha Hasan- Id:1058
-// cheering by : Syeda  Ayesha Akter Asha - ID: 1293
-// No contribution: Nahid Hasan Hridoy , ID: 1239
+
 
 
 #include <conio.h>
@@ -40,7 +39,7 @@ struct pass {
 
 struct pass currentUser;
 
-/*
+
 struct money {
 	char usernameto[50];
 	char userpersonfrom[50];
@@ -50,12 +49,13 @@ struct money {
 struct userpass {
 	char password[50];
 };
-*/
+
 
 // Declaring all the functions
 
 void transfermoney(void);
 void display(char*);
+void mainpage(void);
 void person(char*);
 void login(void);
 void loginsu(void);
@@ -118,18 +118,20 @@ gotoxy(24, 10);
 	}
 
 	 printf("\n\nLoading");
+
     for (i = 0; i < 3; i++) {
         printf(".");
-        Sleep(1000); // Delay for 1 second
+        Sleep(100); // Delay for 1 second
     }
 
+mainpage();
 
-    system("cls");
-    gotoxy(25, 10);
+ }
 
-	printf("\n\t\t\tDEVELOPER- Eusha Hasan");
-
-	gotoxy(20, 13);
+ void mainpage(void){
+int choice;
+     system("cls");
+ gotoxy(20, 13);
 	printf("1.... CREATE A BIKASH ACCOUNT");
 
 	gotoxy(20, 15);
@@ -169,8 +171,6 @@ case 4:
 
 		getch();
 	}
-
-
 
  }
 
@@ -218,6 +218,15 @@ fflush(stdin);
     scanf("%d", &u1.month);
     printf("YEAR: ");
     scanf("%d", &u1.year);
+    if (u1.year >2007){
+        printf("Your age is under 18 years old\n");
+        printf("Please try again\n");
+
+	getch();
+	mainpage();
+    }
+
+
     getchar();
 
     printf("\nNID NUMBER: ");
@@ -230,8 +239,6 @@ fflush(stdin);
     fflush(stdin);
 
 
-
-    fflush(stdin);
     printf("\nUSERNAME: ");
    scanf("%s", u1.username);
     fflush(stdin);
@@ -423,7 +430,7 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
         printf("*");
 	}
 	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
-	gotoxy(15, 15);
+	gotoxy(30, 7);
 	printf("CURRENT AMOUNT %d Tk\n,", currentUser.total);
 
 
@@ -441,7 +448,7 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	gotoxy(30,15);
 	printf(" 5......CASH OUT MONEY");
 	gotoxy(30,16);
-	printf(" 6......ALL TRASACION'S DETAILS");
+	printf(" 6......ALL TRANSACTION DETAILS");
 	gotoxy(30,17);
     printf(" 7......MOBILE RECHARGE");
     gotoxy(30,18);
@@ -974,7 +981,7 @@ void password_change(void) {
 
     getch();
     display(currentUser.username);
-    
+
 }
 
 
