@@ -1,4 +1,3 @@
-
 // Bank Management system (BKASH):
 
 
@@ -9,17 +8,14 @@
 #include<string.h>
 #include<windows.h>
 #include<time.h>
-
 void gotoxy(int x, int y)
 {
 	COORD c;
 	c.X = x;
 	c.Y = y;
-
 	SetConsoleCursorPosition(
 		GetStdHandle(STD_OUTPUT_HANDLE), c);
 }
-
 struct pass {
 	char username[50];
 	int date, month, year;
@@ -33,13 +29,7 @@ struct pass {
 	int total = 0;
 	int count = 0;
 };
-
-
-
-
 struct pass currentUser;
-
-
 struct money {
 	char usernameto[50];
 	char userpersonfrom[50];
@@ -55,7 +45,6 @@ struct userpass {
 
 void transfermoney(void);
 void display(char*);
-void mainpage(void);
 void person(char*);
 void login(void);
 void loginsu(void);
@@ -73,7 +62,7 @@ void mobile_recharge(void);
 void edufee(void);
 void payment(void);
 void password_change(void);
-
+void mainpage(void);
  int main(){
     FILE *ptr = fopen("Account.txt", "w");
  int i, a, b, choice;
@@ -86,7 +75,6 @@ gotoxy(24, 10);
 	}
 	gotoxy(19,11);
 	printf("     *");
-
 	gotoxy(82,11);
 	printf("   *");
 
@@ -97,12 +85,8 @@ gotoxy(24, 10);
 	gotoxy(21, 12);
 
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    // Set text color to red
     printf("   *");
     SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
-
-
 	printf("\t\tWELCOME TO BKASH BANKING SYSTEM\n\n");
 
 	 SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
@@ -116,16 +100,12 @@ gotoxy(24, 10);
 	for (i=0; i<62; i++){
         printf("*");
 	}
-
 	 printf("\n\nLoading");
-
     for (i = 0; i < 3; i++) {
         printf(".");
         Sleep(100); // Delay for 1 second
     }
-
-mainpage();
-
+    mainpage();
  }
 
  void mainpage(void){
@@ -133,20 +113,12 @@ int choice;
      system("cls");
  gotoxy(20, 13);
 	printf("1.... CREATE A BIKASH ACCOUNT");
-
 	gotoxy(20, 15);
 	printf("2.... ALREADY AN USER? SIGN IN");
 	gotoxy(20, 17);
 	printf("3.... EXIT\n\n");
-
 	printf("\n\nENTER YOUR CHOICE.. ");
-
-
-
 	scanf("%d", &choice);
-
-
-// choice made
 
 	switch (choice) {
 	case 1:
@@ -165,9 +137,7 @@ int choice;
     break;
 
 case 4:
-
     break;
-
 
 		getch();
 	}
@@ -175,8 +145,8 @@ case 4:
  }
 
 void account(void) {
- char password[20];
-	int passwordlength, i=0, seek = 0;
+ char password[5];
+	int passwordlength, i, seek = 0;
 	char ch;
 	FILE *fp, *fu;
 	struct pass u1;
@@ -187,10 +157,7 @@ void account(void) {
     // Opening file to
     // write data of a user
     fp = fopen("username.txt", "ab");
-
       printf("\n\n!!!!!CREATE ACCOUNT!!!!!\n");
-
-
 
     printf("\nFIRST NAME: ");
     fflush(stdin);
@@ -218,14 +185,13 @@ fflush(stdin);
     scanf("%d", &u1.month);
     printf("YEAR: ");
     scanf("%d", &u1.year);
-    if (u1.year >2007){
+     if (u1.year >2007){
         printf("Your age is under 18 years old\n");
         printf("Please try again\n");
 
 	getch();
 	mainpage();
     }
-
 
     getchar();
 
@@ -242,25 +208,20 @@ fflush(stdin);
     printf("\nUSERNAME: ");
    scanf("%s", u1.username);
     fflush(stdin);
- //printf("%s new", u1.username);
+    printf("Password must be 5 characters.\n");
     printf("\nPASSWORD: ");
 //scanf("%s",u1.password);
-char c=' ';
-while (i<10){
-    u1.password[i]=getch();
-    c = u1.password[i];
-    if (c==13){
-        break;
-    }
-    else {
-        printf("*");
-        i++;
-    }
-    u1.password[i]='\0';
+	for (i = 0; i < 50; i++) {
+		ch = getch();
+		if (ch != 13) {
+			password[i] = ch;
+			ch = '*';
+			printf("%c", ch);
+		}
+		else
+			break;
+	}
 
-}
-
-	// new
 strcpy(currentUser.fname, u1.fname);
     strcpy(currentUser.lname, u1.lname);
     strcpy(currentUser.fathname, u1.fathname);
@@ -317,9 +278,6 @@ void accountcreated(void)
 }
 
 
-// Login function to check
-
-
 void login(void)
 {
 	system("cls");
@@ -327,7 +285,7 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	char username[50];
 	char password[50];
 
-	int i=0, j, k;
+	int i, j, k;
 	char ch;
 	FILE *fp, *fu;
 	//struct pass u1;
@@ -362,22 +320,18 @@ scanf("%s", username);
 
 	gotoxy(35, 14);
 	printf("PASSWORD..");
+for (i = 0; i < 50; i++) {
+		ch = getch();
+		if (ch != 13) {
+			password[i] = ch;
+			ch = '*';
+			printf("%c", ch);
+		}
 
-char c=' ';
-while (i<10){
-    password[i]=getch();
-    c = password[i];
-    if (c==13){
-        break;
-    }
-    else {
-        printf("*");
-        i++;
-    }
-    password[i]='\0';
-
-}
-	if (strcmp(currentUser.username,username)==0){
+		else
+			break;
+	}
+if (strcmp(currentUser.username,username)==0){
 
 
 			loginsu();
@@ -395,15 +349,20 @@ while (i<10){
 	getch();
 	login();
 	}
+	}
+	else {
+        printf("Your username is not matched\n");
+
+	printf("Please try again\n");
+
+	getch();
+	login();
+	}
 
 	// Closing the file
 
 }
 
-
-
- //Redirect after
-// successful login
 void loginsu(void)
 {
 	int i;
@@ -424,10 +383,6 @@ void loginsu(void)
 	getch();
 }
 
-
-
-// Display function to show the
-// data of the user on screen
 void display(char username1[])
 {
 system("cls");
@@ -444,12 +399,12 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	printf("\t\t\t\t\t\t\tHOME ");
 	gotoxy(0, 7);
 	 SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);
-	printf("\t\t\t\t\t");
+	printf("\t\t\t\t");
 	for (int i=0; i<60; i++){
         printf("*");
 	}
 	SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
-	gotoxy(30, 8);
+	gotoxy(30, 7);
 	printf("CURRENT AMOUNT %d Tk\n,", currentUser.total);
 
 
@@ -1030,3 +985,4 @@ void logout(void)
 
 	getch();
 }
+
