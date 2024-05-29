@@ -1,6 +1,6 @@
 
 // Bank Management system (BKASH):
-
+// FINAL CODE
 
 
 #include <conio.h>
@@ -231,8 +231,44 @@ fflush(stdin);
 
     printf("\nNID NUMBER: ");
     scanf("%[^\n]%*c", u1.nidnum);
-    fflush(stdin);
+    int dhori = 0;
+    FILE *f;
 
+    f = fopen("te.txt", "r+");
+    if (f == NULL) {
+        f = fopen("te.txt", "w");
+        if (f == NULL) {
+            fseek(f, 0, SEEK_END);
+            fputs(u1.nidnum, f);
+            fputs("\n", f);
+            fclose(f);
+        }
+        fputs(u1.nidnum, f);
+        fputs("\n", f);
+        fclose(f);
+    } else {
+        char s[20];
+        while (fgets(s, sizeof(s), f)) {
+            s[strcspn(s, "\n")] = 0;
+            if (strcmp(s, u1.nidnum) == 0) {
+                dhori++;
+                break;
+            }
+        }
+        if (dhori > 0) {
+            printf("The NID number is already taken.\n");
+            printf("Please try again\n");
+            fclose(f);
+            mainpage();
+        } else {
+
+            fseek(f, 0, SEEK_END);
+            fputs(u1.nidnum, f);
+            fputs("\n", f);
+            fclose(f);
+        }
+    }
+    fflush(stdin);
 
     printf("\nPHONE NUMBER: ");
    scanf("%[^\n]%*c", u1.pnumber);
@@ -244,7 +280,16 @@ fflush(stdin);
     fflush(stdin);
  //printf("%s new", u1.username);
     printf("\nPASSWORD: ");
-scanf("%s",u1.password);
+for (i = 0; i < 50; i++) {
+		ch = getch();
+		if (ch != 13) {
+			u1.password[i] = ch;
+			ch = '*';
+			printf("%c", ch);
+		}
+		else
+			break;
+	}
 
 	// new
 strcpy(currentUser.fname, u1.fname);
@@ -348,25 +393,25 @@ scanf("%s", username);
 
 	gotoxy(35, 14);
 	printf("PASSWORD..");
+for (i = 0; i < 50; i++) {
+		ch = getch();
+		if (ch != 13) {
+			password[i] = ch;
+			ch = '*';
+			printf("%c", ch);
+		}
 
-	scanf("%s", password);
+		else
+			break;
+	}
+
 	if (strcmp(currentUser.username,username)==0){
 
-	if (strcmp(currentUser.password,password)== 0){
 
 			loginsu();
 			//fflush(stdin);
 			display(username);
 			fclose(fp);
-	}
-	else {
-        printf("password don't matched\n");
-
-	printf("Please try again\n");
-
-	getch();
-	login();
-	}
 	}
 	else {
         printf("Your username is not matched\n");
@@ -1011,4 +1056,3 @@ void logout(void)
 
 	getch();
 }
-
